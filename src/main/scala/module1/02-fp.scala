@@ -165,7 +165,47 @@ object hof{
       case Option.None => Option.None
     }
 
-    def flatMap[B](f: A => Option[B]): Option[B] = ???
+    /**
+     *
+     * Реализовать метод zip, который будет создавать Option от пары значений из 2-х Option
+     */
+    def zip[A1 >: A, B](other: Option[B]): Option[(A1, B)] = {
+      (other, this) match {
+        case (Option.Some(x), Option.Some(y)) => Option.Some((y, x))
+        case _ => Option.None
+      }
+    }
+
+    def flatMap[B](f: A => Option[B]): Option[B] = {
+      this match {
+        case Option.Some(x) => f(x)
+        case Option.None    => Option.None
+      }
+    }
+
+
+    /**
+     *
+     * Реализовать метод printIfAny, который будет печатать значение, если оно есть
+     */
+    def printIfAny = {
+      this match {
+        case Option.Some(x) => println(x)
+        case _ => Option.None
+      }
+    }
+
+    /**
+     *
+     * Реализовать метод filter, который будет возвращать не пустой Option
+     * в случае если исходный не пуст и предикат от значения = true
+     */
+    def filter(predicate: A => Boolean): Option[A] = {
+      this match {
+        case Option.Some(x) if predicate(x) => Option.Some(x)
+        case _ => Option.None
+      }
+    }
 
     // val i : Option[Int]  i.map(v => v + 1)
 
@@ -181,40 +221,5 @@ object hof{
      case class Some[A](v: A) extends Option[A]
      case object None extends Option[Nothing]
    }
-
-
-  /**
-   *
-   * Реализовать метод printIfAny, который будет печатать значение, если оно есть
-   */
-
-  /**
-   *
-   * реализовать метод orElse который будет возвращать другой Option, если данный пустой
-   */
-
-
-  /**
-   *
-   * Реализовать метод isEmpty, который будет возвращать true если Option не пуст и false в противном случае
-   */
-
-
-  /**
-   *
-   * Реализовать метод get, который будет возвращать значение
-   */
-
-  /**
-   *
-   * Реализовать метод zip, который будет создавать Option от пары значений из 2-х Option
-   */
-
-
-  /**
-   *
-   * Реализовать метод filter, который будет возвращать не пустой Option
-   * в случае если исходный не пуст и предикат от значения = true
-   */
 
  }
